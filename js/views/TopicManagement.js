@@ -61,8 +61,12 @@ export const TopicManagement = {
 		add_new_topic(server) {
 			this.topics = {...this.add_topic(this.topics, new Topic({server_id: server.server_id}))}
 		},
-		save(topics) {
-			topics.forEach(t => t.save());
+		async save(topics) {
+			if(topics.length === 0) {
+				return ;
+			}
+			await Promise.all(topics.map(t => t.save()));
+			Server.subscribe_topics(Server.server_connections.get(topics[0].server_id), topics);
 		},
 	},
 }

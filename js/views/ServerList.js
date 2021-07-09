@@ -58,6 +58,10 @@ export const ServerList = {
 			console.log('update server list')
 			this.refresh();
 		})
+		document.body.addEventListener('db:Server/saved', () => {
+			console.log('update server list')
+			this.refresh();
+		})
 		this.refresh();
 	},
 	methods: {
